@@ -10,12 +10,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaGoogle } from "react-icons/fa";
 
 const Login = () => {
   const [captchaText, setCaptchaText] = useState("");
   const [disabled, setDisabled] = useState(true);
   const captchaRef = useRef(null);
-  const { signIn } = useContext(AuthContext);
+  const { signIn, googleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -25,7 +26,7 @@ const Login = () => {
 
   useEffect(() => {
     handleCaptcha();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [captchaText]); //things to know!
 
   const handleLogin = (event) => {
@@ -48,7 +49,17 @@ const Login = () => {
         console.log(errorMessage);
       });
   };
-
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   const handleCaptcha = () => {
     if (captchaText.length < 6) {
       return;
@@ -126,19 +137,28 @@ const Login = () => {
               </div>
               <div className="form-control mt-6">
                 <input
-                  disabled={disabled}
-                  className="btn btn-primary bg-red-700"
+                  //   disabled={disabled}
+                  className="btn btn-primary bg-[#c42a36]"
                   type="submit"
                   value="Login"
                 />
               </div>
               <ToastContainer />
-              <p className="text-center mt-2">
-                New here?{" "}
-                <Link to={"/signup"}>
-                  <span className="underline">Register</span>
+              <div className="divider">OR</div>
+              <div className="flex justify-center mt-2 space-x-2">
+                <button
+                  onClick={handleGoogleSignIn}
+                  className="p-2 bg-[#1D424F] rounded-full text-white hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                >
+                  <FaGoogle className="h-5 w-5" />
+                </button>
+                <Link
+                  to="/signup"
+                  className="p-2 bg-[#1D424F] rounded-full text-white hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                >
+                  Register
                 </Link>
-              </p>
+              </div>
             </form>
           </div>
         </div>

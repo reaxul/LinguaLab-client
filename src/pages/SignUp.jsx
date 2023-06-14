@@ -12,7 +12,7 @@ const SignUp = () => {
     reset,
     formState: { errors },
   } = useForm();
-  
+
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const onSubmit = (data) => {
     console.log(data);
@@ -132,8 +132,7 @@ const SignUp = () => {
                 <input
                   type="submit"
                   value="Register"
-                                  className="btn btn-primary"
-                                  
+                  className="btn bg-[#1D424F] hover:bg-[#c42a36]"
                 />
               </div>
               <p className="text-center mt-2">
