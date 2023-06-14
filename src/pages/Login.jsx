@@ -1,33 +1,15 @@
 import { useContext } from "react";
-import { useEffect, useRef, useState } from "react";
-import {
-  loadCaptchaEnginge,
-  validateCaptcha,
-//   LoadCanvasTemplateNoReload,
-} from "react-simple-captcha";
 import { AuthContext } from "../provider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaGoogle } from "react-icons/fa";
 
 const Login = () => {
-//   const [captchaText, setCaptchaText] = useState("");
-//   const [disabled, setDisabled] = useState(true);
-//   const captchaRef = useRef(null);
   const { signIn, googleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-//   useEffect(() => {
-//     loadCaptchaEnginge(6, "black", "white");
-//   }, []);
-
-//   useEffect(() => {
-//     handleCaptcha();
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, [captchaText]); //things to know!
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -60,23 +42,7 @@ const Login = () => {
         console.log(error.message);
       });
   };
-//   const handleCaptcha = () => {
-//     if (captchaText.length < 6) {
-//       return;
-//     }
 
-//     if (validateCaptcha(captchaText)) {
-//       setDisabled(false);
-//     } else {
-//       setDisabled(true);
-//       Swal.fire({
-//         icon: "error",
-//         title: "Oops...",
-//         text: "Wrong captcha!",
-//       });
-//       setCaptchaText("");
-//     }
-//   };
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">
@@ -121,23 +87,9 @@ const Login = () => {
                   </a>
                 </label>
               </div>
-              <div className="form-control">
-                {/* <LoadCanvasTemplateNoReload /> */}
-                {/* <input
-                  ref={captchaRef}
-                  type="text"
-                  name="captcha"
-                  placeholder="Enter the captcha"
-                  className="input input-bordered my-2"
-                  value={captchaText}
-                  onChange={() => {
-                    setCaptchaText(captchaRef.current.value);
-                  }}
-                /> */}
-              </div>
+              <div className="form-control"></div>
               <div className="form-control mt-6">
                 <input
-                  //   disabled={disabled}
                   className="btn btn-primary bg-[#c42a36]"
                   type="submit"
                   value="Login"

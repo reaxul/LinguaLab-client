@@ -128,6 +128,27 @@ const SignUp = () => {
                   </p>
                 )}
               </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Confirm Password</span>
+                </label>
+                <input
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="confirm password"
+                  className="input input-bordered"
+                  {...register("confirmPassword", {
+                    required: true,
+                    //   validate: (value) =>
+                    //     value === passwordRef.current || "Passwords do not match",
+                  })}
+                />
+                {errors.confirmPassword && (
+                  <p className="text-red-500">
+                    {errors.confirmPassword.message}
+                  </p>
+                )}
+              </div>
               <div className="form-control mt-6">
                 <input
                   type="submit"
