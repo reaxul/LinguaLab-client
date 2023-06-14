@@ -1,13 +1,13 @@
-// import { useContext } from "react";
-// import { AuthContext } from "../provider/AuthProvider";
-// import { BsCart4 } from 'react-icons/bs';
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider";
+import { FaRegUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-//   const { user, logOut } = useContext(AuthContext);
-//   const handleLogout = () => {
-//     logOut();
-//   };
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogout = () => {
+    logOut();
+  };
   const navOptions = (
     <>
       <li>
@@ -20,7 +20,6 @@ const Navbar = () => {
       <li>
         <Link to={"/order/salad"}>Instructor</Link>
       </li>
-    
     </>
   );
 
@@ -51,15 +50,58 @@ const Navbar = () => {
             {navOptions}
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">
-         <img src="WevName.png" className="w-36 md:w-56" alt="" />
-        </a>
+        <Link to={'/'} className="btn btn-ghost normal-case text-xl">
+          <img src="WevName.png" className="w-36 md:w-56" alt="" />
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navOptions}</ul>
       </div>
       <div className="navbar-end">
-        <Link to={'/login'} className="btn bg-[01404f]">Login</Link>
+        {user ? (
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img
+                  src={
+                    user.photoURL ? (
+                      user.photoURL
+                    ) : (
+                      <FaRegUserCircle></FaRegUserCircle>
+                    )
+                  }
+                  title={user?.displayName}
+                />
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <a className="justify-between">
+                  Profile
+                  <span className="badge">Active</span>
+                </a>
+              </li>
+              <li>
+                <Link to="/dashboard">Dashboard</Link>
+              </li>
+              <li>
+                <Link onClick={handleLogout}>Logout</Link>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <Link to="/login">
+            <button
+              style={{ backgroundColor: "#1D424F", color: "white" }}
+              className="btn "
+            >
+              Login
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );
