@@ -1,10 +1,11 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import Swal from "sweetalert2";
 
 const SignUp = () => {
+    const [error, setError] = useState('');
   const navigate = useNavigate();
   const {
     register,
@@ -15,7 +16,12 @@ const SignUp = () => {
 
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const onSubmit = (data) => {
-    console.log(data);
+      console.log(data.password, data.confirmPassword);
+      if (data.confirmPassword!==data.password) {
+          setError('Passwords do not match');
+          return;
+      }
+      setError('');
     createUser(data.email, data.password).then((useCredentials) => {
       const loggedInUser = useCredentials.user;
       console.log(loggedInUser);
@@ -147,7 +153,10 @@ const SignUp = () => {
                   <p className="text-red-500">
                     {errors.confirmPassword.message}
                   </p>
-                )}
+                              )}
+                              {
+                                  <span className="text-red-500">{error}</span>
+                              }
               </div>
               <div className="form-control mt-6">
                 <input
