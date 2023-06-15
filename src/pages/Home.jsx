@@ -1,9 +1,11 @@
 import Banner from "../components/Banner";
+import PopularClasses from "../sections/PopularClasses";
 
 const Home = () => {
   return (
     <div>
-      <Banner></Banner>
+          <Banner></Banner>
+          <PopularClasses></PopularClasses>
     </div>
   );
 };
