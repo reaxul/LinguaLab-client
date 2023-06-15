@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const ExtraSection = () => {
   return (
-      <section className="mt-20">
+      <section className="mt-20 border-y-2 rounded-md py-10">
           
       <h2 className="text-4xl mb-9 text-center">---Discover the World of Languages---</h2>
       <div className="extra-content">
@@ -32,7 +32,7 @@ const ExtraSection = () => {
             help you master new languages with ease.
           </motion.p>
           <motion.button
-            className="btn btn-primary mt-6"
+            className="btn text-white hover:bg-[#1d424f] bg-[#c42a36] mt-6"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.8 }}
