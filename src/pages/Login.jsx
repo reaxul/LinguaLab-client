@@ -4,6 +4,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaGoogle } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+
 
 const Login = () => {
   const { signIn, googleSignIn } = useContext(AuthContext);
@@ -11,26 +13,25 @@ const Login = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const handleLogin = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const email = form.email.value;
-    const password = form.password.value;
+  const { handleSubmit, register, formState: { errors } } = useForm();
+
+  const handleLogin = (data) => {
+    const { email, password } = data;
     console.log(email, password);
 
     signIn(email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
-        toast.success("Logged in successful!"); //things to know!
+        toast.success("Logged in successfully!");
         navigate(from, { replace: true });
       })
       .catch((error) => {
-        // const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
       });
   };
+
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
@@ -56,31 +57,37 @@ const Login = () => {
             </p>
           </div>
           <div className="card flex-shrink-0 max-w-sm shadow-2xl bg-base-100 lg:w-1/2">
-            <form onSubmit={handleLogin} className="card-body">
+            <form onSubmit={handleSubmit(handleLogin)} className="card-body">
               <h1 className="text-5xl font-bold">Login here!</h1>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
                 </label>
                 <input
-                  required
                   type="text"
                   name="email"
                   placeholder="email"
-                  className="input input-bordered"
+                  className={`input input-bordered ${errors.email ? 'input-error' : ''}`}
+                  {...register("email", { required: true })}
                 />
+                {errors.email && (
+                  <span className="text-red-500">Email is required!</span>
+                )}
               </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  required
                   type="password"
                   name="password"
                   placeholder="password"
-                  className="input input-bordered"
+                  className={`input input-bordered ${errors.password ? 'input-error' : ''}`}
+                  {...register("password", { required: true })}
                 />
+                {errors.password && (
+                  <span className="text-red-500">Password is required!</span>
+                )}
                 <label className="label">
                   <a href="#" className="label-text-alt link link-hover">
                     Forgot password?
