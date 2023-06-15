@@ -16,7 +16,6 @@ const SignUp = () => {
 
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const onSubmit = (data) => {
-      console.log(data.password, data.confirmPassword);
       if (data.confirmPassword!==data.password) {
           setError('Passwords do not match');
           return;
