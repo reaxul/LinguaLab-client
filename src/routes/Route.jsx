@@ -5,6 +5,7 @@ import ErrorPage from "../pages/ErrorPage";
 import Classes from "../pages/Classes";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ export const router = createBrowserRouter([
         element: <Home></Home>,
         }, {
             path: '/classes',
-            element:<Classes></Classes>
+            element:<PrivateRoute><Classes></Classes></PrivateRoute>
         }, {
             path: '/login',
             element:<Login></Login>
