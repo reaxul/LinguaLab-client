@@ -17,7 +17,6 @@ const Login = () => {
 
   const handleLogin = (data) => {
     const { email, password } = data;
-    console.log(email, password);
 
     signIn(email, password)
       .then((userCredential) => {

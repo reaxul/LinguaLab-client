@@ -21,8 +21,8 @@
         "price": 39.99
     },
     {
-        "image": "german.jpg",
-        "name": "https://i.ibb.co/HgdxqRK/medium-shot-smiley-woman-teaching.jpg",
+        "image": "https://i.ibb.co/HgdxqRK/medium-shot-smiley-woman-teaching.jpg",
+        "name": "German Grammar Workshop",
         "instructor": "Markus Müller",
         "availableSeats": 8,
         "price": 44.99
