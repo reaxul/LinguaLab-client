@@ -18,7 +18,7 @@ const PopularInstructors = () => {
   }, []);
 
   return (
-    <section className="popular-classes mt-14">
+    <section className="popular-classes my-14">
           <h2 className="text-4xl text-center font-bold">Top Instructors</h2>
           <h3 className="text-lg text-center mb-8">Learn from the Best - Our Highly Skilled Instructors</h3>
 

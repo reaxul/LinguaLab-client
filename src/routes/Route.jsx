@@ -6,6 +6,7 @@ import Classes from "../pages/Classes";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import PrivateRoute from "./PrivateRoute";
+import Instructors from "../pages/Instructors";
 
 export const router = createBrowserRouter([
   {
@@ -16,16 +17,27 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        }, {
-            path: '/classes',
-            element:<PrivateRoute><Classes></Classes></PrivateRoute>
-        }, {
-            path: '/login',
-            element:<Login></Login>
-        }, {
-            path: 'signup',
-            element:<SignUp></SignUp>
-      }
+      },
+      {
+        path: "/classes",
+        element: (
+          <PrivateRoute>
+            <Classes></Classes>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "signup",
+        element: <SignUp></SignUp>,
+      },
+      {
+        path: "instructors",
+        element: <Instructors></Instructors>,
+      },
     ],
   },
 ]);
