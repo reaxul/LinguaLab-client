@@ -5,7 +5,7 @@ const PopularClasses = () => {
 
   useEffect(() => {
     // Fetch popular classes data from the backend API
-    fetch("http://localhost:5000/classes")
+    fetch("https://linguo-lab-server.vercel.app/classes")
       .then((res) => res.json())
       .then((data) => {
         // Sort classes based on the number of students enrolled

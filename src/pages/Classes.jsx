@@ -1,13 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Classes = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const { user } = useContext(AuthContext);
   const [classes, setClasses] = useState([]);
-const navigate=useNavigate()
+
   useEffect(() => {
-    fetch("http://localhost:5000/all-classes")
+    fetch("https://linguo-lab-server.vercel.app/all-classes")
       .then((res) => res.json())
       .then((data) => {
         setClasses(data);
@@ -17,15 +21,40 @@ const navigate=useNavigate()
       });
   }, []);
 
-  const handleSelectClass = (classId) => {
+  const handleSelectClass = (item) => {
+    const { _id, name, image, instructor, price } = item;
     if (!user) {
-    //   alert("Please log in before selecting a course.");
-        navigate('/login');
+      //   alert("Please log in before selecting a course.");
+      navigate("/login", { state: { from: location } });
       return;
     }
-
-    // Handle class selection logic here...
-    console.log(`Selected class with ID: ${classId}`);
+    const selectedClass = {
+      classId: _id,
+      name,
+      image,
+      instructor,
+      price,
+      email: user.email,
+    };
+    fetch("https://linguo-lab-server.vercel.app/my-classes", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(selectedClass)
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "This class has been selected.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
 
   return (
@@ -59,7 +88,7 @@ const navigate=useNavigate()
                   user?.isAdmin ||
                   user?.isInstructor
                 }
-                onClick={() => handleSelectClass(classItem._id)}
+                onClick={() => handleSelectClass(classItem)}
                 className="btn btn-block bg-[#1d424f]"
               >
                 {user && !user.isAdmin && !user.isInstructor

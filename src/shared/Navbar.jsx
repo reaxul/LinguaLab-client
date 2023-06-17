@@ -120,7 +120,7 @@ const Navbar = () => {
                 </a>
               </li>
               <li>
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/dashboard/my-classes">Dashboard</Link>
               </li>
               <li>
                 <Link onClick={handleLogout}>Logout</Link>

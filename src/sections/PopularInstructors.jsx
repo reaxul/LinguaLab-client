@@ -5,7 +5,7 @@ const PopularInstructors = () => {
 
   useEffect(() => {
     // Fetch popular classes data from the backend API
-    fetch("http://localhost:5000/instructor")
+    fetch("https://linguo-lab-server.vercel.app/instructor")
       .then((res) => res.json())
       .then((data) => {
         // Select the top 6 classes

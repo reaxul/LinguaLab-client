@@ -4,7 +4,7 @@ const Instructors = () => {
   const [instructors, setInstructors] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/instructor")
+    fetch("https://linguo-lab-server.vercel.app/instructor")
       .then((res) => res.json())
       .then((data) => {
         setInstructors(data);
