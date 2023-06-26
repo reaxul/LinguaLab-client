@@ -4,7 +4,7 @@ const Footer = () => {
         <div>
 <footer className="footer p-10 bg-base-200 text-base-content">
   <div>
-    <img src="logo.png" className="w-32 md:w-40" alt="" />
+    <img src="https://i.ibb.co/X2mP3jK/logo.png" className="w-32 md:w-40" alt="" />
     <p>LinguoLab Ltd.<br/>Providing reliable learning since 1992</p>
   </div> 
   <div>

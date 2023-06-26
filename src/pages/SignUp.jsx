@@ -3,9 +3,11 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import Swal from "sweetalert2";
+import SignupAnimation from "../assets/SignupAnimation.json";
+import Lottie from "lottie-react";
 
 const SignUp = () => {
-    const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const {
     register,
@@ -16,45 +18,55 @@ const SignUp = () => {
 
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const onSubmit = (data) => {
-      if (data.confirmPassword!==data.password) {
-          setError('Passwords do not match');
-          return;
-      }
-      setError('');
+    if (data.confirmPassword !== data.password) {
+      setError("Passwords do not match");
+      return;
+    }
+    setError("");
     createUser(data.email, data.password).then((useCredentials) => {
       const loggedInUser = useCredentials.user;
       console.log(loggedInUser);
+
       updateUserProfile(data.name, data.PhotoURL)
         .then(() => {
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "User created successfully",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          reset();
-          navigate("/");
+          const saveUser = { name: data.name, email: data.email };
+          fetch("https://linguo-lab-server.vercel.app/users", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(saveUser),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.insertedId) {
+                reset();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "User created successfully",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                navigate("/");
+              }
+            });
         })
         .catch((error) => console.log(error));
     });
   };
 
   return (
-    <>
-      <div className="hero min-h-screen bg-base-200">
+    <div>
+      <div className="hero min-h-screen bg-base-200 pt-14">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left lg:w-1/2">
-            <h1 className="text-5xl font-bold">Register now!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
+            <h1 className="text-5xl font-bold lg:hidden">Register now!</h1>
+            <Lottie animationData={SignupAnimation} loop={true} />
           </div>
-          <div className="card flex-shrink-0 max-w-sm shadow-2xl bg-base-100 lg:w-1/2">
-            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-              <h1 className="text-5xl font-bold">Register now!</h1>
+          <div className="card flex-shrink-0 max-w-sm shadow-2xl bg-base-100 card-body lg:w-1/2">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <h1 className="text-5xl font-bold">Register here!</h1>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Name</span>
@@ -62,7 +74,7 @@ const SignUp = () => {
                 <input
                   name="name"
                   type="text"
-                  placeholder="name"
+                  placeholder="Enter your name"
                   className="input input-bordered"
                   {...register("name", { required: true })}
                 />
@@ -91,7 +103,7 @@ const SignUp = () => {
                 <input
                   name="email"
                   type="email"
-                  placeholder="email"
+                  placeholder="Enter mail address"
                   className="input input-bordered"
                   {...register("email", { required: true })}
                 />
@@ -106,7 +118,7 @@ const SignUp = () => {
                 <input
                   name="password"
                   type="password"
-                  placeholder="password"
+                  placeholder="Enter your password"
                   className="input input-bordered"
                   {...register("password", {
                     required: true,
@@ -140,7 +152,7 @@ const SignUp = () => {
                 <input
                   name="confirmPassword"
                   type="password"
-                  placeholder="confirm password"
+                  placeholder="Enter password again"
                   className="input input-bordered"
                   {...register("confirmPassword", {
                     required: true,
@@ -152,10 +164,8 @@ const SignUp = () => {
                   <p className="text-red-500">
                     {errors.confirmPassword.message}
                   </p>
-                              )}
-                              {
-                                  <span className="text-red-500">{error}</span>
-                              }
+                )}
+                {<span className="text-red-500">{error}</span>}
               </div>
               <div className="form-control mt-6">
                 <input
@@ -166,7 +176,7 @@ const SignUp = () => {
               </div>
               <p className="text-center mt-2">
                 Already have an account?{" "}
-                <span className="link link-hover">
+                <span className="link">
                   <Link to={"/login"}>Login</Link>
                 </span>
               </p>
@@ -174,7 +184,7 @@ const SignUp = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
