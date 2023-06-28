@@ -59,7 +59,7 @@ const SignUp = () => {
   return (
     <div>
       <div className="hero min-h-screen bg-base-200 pt-14">
-        <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="hero-content flex-col lg:flex-row">
           <div className="text-center lg:text-left lg:w-1/2">
             <h1 className="text-5xl font-bold lg:hidden">Register now!</h1>
             <Lottie animationData={SignupAnimation} loop={true} />

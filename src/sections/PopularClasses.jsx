@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { BsPeopleFill } from "react-icons/bs";
+import { BiTimeFive } from "react-icons/bi";
 
 const PopularClasses = () => {
   const [popularClasses, setPopularClasses] = useState([]);
@@ -32,8 +34,8 @@ const PopularClasses = () => {
           <img src={classItem.image} alt="Class" className="w-full h-48 object-cover rounded-t-lg" />
           <div className="p-4">
             <h2 className="text-xl font-bold">{classItem.className}</h2>
-            <p>Duration: {classItem.courseDuration}</p>
-            <p>Students: {classItem.totalStudents}</p>
+            <p className="flex items-center font-bold"><BsPeopleFill></BsPeopleFill>Students: {classItem.totalStudents}</p>
+            <p className="flex items-center"><BiTimeFive></BiTimeFive>Duration: {classItem.courseDuration}</p>
           </div>
         </div>
       ))}
