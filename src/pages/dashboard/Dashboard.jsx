@@ -1,9 +1,9 @@
+import { FaChalkboardTeacher, FaHome } from "react-icons/fa";
 import { BsBook, BsFillCartPlusFill } from "react-icons/bs";
 import { SiGoogleclassroom } from "react-icons/si";
+import { Link, Outlet } from "react-router-dom";
 import Navbar from "../../shared/Navbar";
 import Footer from "../../shared/Footer";
-import { Link, Outlet } from "react-router-dom";
-import { FaChalkboardTeacher, FaHome } from "react-icons/fa";
 
 const Dashboard = () => {
   return (

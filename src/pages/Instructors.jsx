@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FaEnvelope } from "react-icons/fa";
 
 const Instructors = () => {
   const [instructors, setInstructors] = useState([]);
@@ -25,16 +26,17 @@ const Instructors = () => {
         {instructors.map((instructor) => (
           <div
             key={instructor._id}
-            className="rounded-lg shadow-xl border border-gray-300"
+            className="rounded-lg shadow-xl hover:shadow-2xl border border-gray-300"
           >
             <img
               src={instructor.image}
+              loading="lazy"
               alt="Class"
               className="w-full h-48 object-cover rounded-t-lg"
             />
             <div className="p-4">
               <h2 className="text-xl font-bold">{instructor.name}</h2>
-              <p>Email: {instructor.email}</p>
+              <p className="flex items-center gap-1"><FaEnvelope/> Mail: {instructor.email}</p>
             </div>
           </div>
         ))}

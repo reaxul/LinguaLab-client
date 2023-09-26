@@ -68,12 +68,13 @@ const Classes = () => {
         {classes.map((classItem) => (
           <div
             key={classItem._id}
-            className={`class-card rounded-lg shadow-xl border border-gray-300 ${
+            className={`class-card rounded-lg shadow-xl hover:shadow-2xl border border-gray-300 mx-3 md:mx-0 ${
               classItem.availableSeats === 0 ? "bg-red-500" : ""
             }`}
           >
             <img
               src={classItem.image}
+              loading="lazy"
               alt="Class"
               className="w-full h-48 object-cover rounded-t-lg"
             />
